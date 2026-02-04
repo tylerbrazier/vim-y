@@ -1,3 +1,7 @@
 # vim-y
 
-`y%` to yank the current filename.
+Yank the current filename
+
+- `y.` relative to cwd
+- `y~` path from home
+- `y/` absolute path

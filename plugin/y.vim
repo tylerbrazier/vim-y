@@ -3,6 +3,7 @@ if exists("g:loaded_y") || &cp
 endif
 let g:loaded_y = 1
 
+nnoremap y% :Y t<CR>
 nnoremap y. :Y .<CR>
 nnoremap y~ :Y ~<CR>
 nnoremap y/ :Y p<CR>

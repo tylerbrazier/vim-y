@@ -3,6 +3,8 @@ if exists("g:loaded_y") || &cp
 endif
 let g:loaded_y = 1
 
+nnoremap y. :Y %:.<CR>
+nnoremap y~ :Y %:~<CR>
 nnoremap y% :call <SID>hints()<CR>:Y %:
 
 command -nargs=1 Y call s:y(<q-args>)
@@ -24,6 +26,9 @@ function s:y(fnmods)
 	if index(regs, 'unnamedplus') >= 0
 		let @+ = f
 	endif
+
+	redraw " avoid the 'Press ENTER ...' prompt
+	echo 'Yanked' f
 endfunction
 
 function s:hints()

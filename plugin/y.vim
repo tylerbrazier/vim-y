@@ -3,18 +3,21 @@ if exists("g:loaded_y") || &cp
 endif
 let g:loaded_y = 1
 
-nnoremap y. :Y %:.<CR>
-nnoremap y~ :Y %:~<CR>
 nnoremap y% :call <SID>hints()<CR>:Y %:
+nnoremap y. :call <SID>hints(line('.'))<CR>:.Y %:
 
-command -nargs=1 Y call s:y(<q-args>)
+command -count -nargs=1 Y call s:y(<q-args>, <count>)
 
-function s:y(fnmods)
+function s:y(fnmods, line)
 	let f = expand(a:fnmods)
 
 	if empty(f)
 		echo 'No filename to yank'
 		return
+	endif
+
+	if !empty(a:line)
+		let f ..= ':'..a:line
 	endif
 
 	let @" = f
@@ -31,10 +34,11 @@ function s:y(fnmods)
 	echo 'Yanked' f
 endfunction
 
-function s:hints()
+function s:hints(line=0)
 	echo '(:help filename-modifiers)'
 	for c in ['t', '.', '~', 'p', 'h', '~:h', 'p:h']
-		let fnmod = '%:'..c
-		echo fnmod.."\t"..expand(fnmod)
+		let fmod = '%:'..c
+		echo fmod.."\t"..expand(fmod)
+				\..(!empty(a:line) ? ':'..a:line : '')
 	endfor
 endfunction

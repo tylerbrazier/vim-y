@@ -3,8 +3,10 @@ if exists("g:loaded_y") || &cp
 endif
 let g:loaded_y = 1
 
+nnoremap y. :Y %:.<CR>
+nnoremap y~ :Y %:~<CR>
 nnoremap y% :call <SID>hints()<CR>:Y %:
-nnoremap y. :call <SID>hints(line('.'))<CR>:.Y %:
+nnoremap y: :call <SID>hints(line('.'))<CR>:.Y %:
 
 command -count -nargs=1 Y call s:y(<q-args>, <count>)
 
